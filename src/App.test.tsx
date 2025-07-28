@@ -1,0 +1,32 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+// Test the Diffie-Hellman key exchange demo
+test('renders Diffie-Hellman demo title', () => {
+  render(<App />);
+  const titleElement = screen.getByText(/Diffie-Hellman Key Exchange Demo/i);
+  expect(titleElement).toBeInTheDocument();
+});
+
+test('renders Alice and Bob panels', () => {
+  render(<App />);
+  const aliceElement = screen.getByText(/Alice/i);
+  const bobElement = screen.getByText(/Bob/i);
+  expect(aliceElement).toBeInTheDocument();
+  expect(bobElement).toBeInTheDocument();
+});
+
+test('renders prime and generator inputs', () => {
+  render(<App />);
+  const primeElement = screen.getByLabelText(/Prime \(p\)/i);
+  const generatorElement = screen.getByLabelText(/Generator \(g\)/i);
+  expect(primeElement).toBeInTheDocument();
+  expect(generatorElement).toBeInTheDocument();
+});
+
+test('renders math explanation button', () => {
+  render(<App />);
+  const mathButton = screen.getByText(/Show Math Explanation/i);
+  expect(mathButton).toBeInTheDocument();
+});
