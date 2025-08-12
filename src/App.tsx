@@ -6,7 +6,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Stepper, Step, StepLabel } from '@mui/material';
-import { modPow, generatePrivateKey, computePublicKey, computeSharedSecret, DEFAULT_P, DEFAULT_G } from './utils/diffieHellman.ts';
+import { modPow, generatePrivateKey, computePublicKey, computeSharedSecret, DEFAULT_P, DEFAULT_G } from './utils/diffieHellman';
 
 const steps = [
   'Set Private Key',
@@ -14,6 +14,20 @@ const steps = [
   'Enter Other\'s Public Key',
   'Compute Shared Secret',
 ];
+
+interface PartyPanelProps {
+  name: string;
+  p: number;
+  g: number;
+  privateKey: number;
+  setPrivateKey: (value: number) => void;
+  publicKey: number;
+  setPublicKey: (value: number) => void;
+  otherPublicKey: number;
+  sharedSecret: number | null;
+  setOtherPublicKey: (value: number) => void;
+  computeSharedSecret: () => void;
+}
 
 const PartyPanel = ({
   name,
@@ -27,7 +41,7 @@ const PartyPanel = ({
   sharedSecret,
   setOtherPublicKey,
   computeSharedSecret,
-}: any) => {
+}: PartyPanelProps) => {
   const [copyMsg, setCopyMsg] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const [showPublicKey, setShowPublicKey] = useState(false);
