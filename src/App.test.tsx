@@ -11,10 +11,10 @@ test('renders Diffie-Hellman demo title', () => {
 
 test('renders Alice and Bob panels', () => {
   render(<App />);
-  const aliceElement = screen.getByText(/Alice/i);
-  const bobElement = screen.getByText(/Bob/i);
-  expect(aliceElement).toBeInTheDocument();
-  expect(bobElement).toBeInTheDocument();
+  const aliceHeading = screen.getByText(/Alice/i, { selector: 'h6' });
+  const bobHeading = screen.getByText(/Bob/i, { selector: 'h6' });
+  expect(aliceHeading).toBeInTheDocument();
+  expect(bobHeading).toBeInTheDocument();
 });
 
 test('renders prime and generator inputs', () => {

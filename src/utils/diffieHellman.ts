@@ -28,10 +28,18 @@ export function modPow(base: number, exponent: number, modulus: number): number 
 
 /**
  * Generate a random private key
- * @param maxValue - Maximum value for the private key (default: 100)
+ * @param maxValue - Maximum value for the private key (default: 1000)
  * @returns A random private key
  */
-export function generatePrivateKey(maxValue: number = 100): number {
+export function generatePrivateKey(maxValue: number = 1000): number {
+  // Use Web Crypto API if available for better randomness
+  const cryptoObj: Crypto | undefined = (globalThis as any).crypto;
+  if (cryptoObj && typeof cryptoObj.getRandomValues === 'function') {
+    const array = new Uint32Array(1);
+    cryptoObj.getRandomValues(array);
+    return (array[0] % maxValue) + 1;
+  }
+  // Fallback to Math.random
   return Math.floor(Math.random() * maxValue) + 1;
 }
 
